@@ -120,10 +120,10 @@ router.post("/login", async (req, res) => {
     });
 });
 
-//middleware test
-router.get("/test", authMiddleWare, (req,res) =>{
-    console.log('res.locals-->',res.locals)
-    res.status(400).send({})
-});
+// //middleware test
+// router.get("/test", authMiddleWare, (req,res) =>{
+//     console.log('res.locals-->',res.locals)
+//     res.status(400).send({})
+// });
 
 module.exports = router;
