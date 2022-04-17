@@ -120,10 +120,19 @@ router.post("/login", async (req, res) => {
     });
 });
 
-// //middleware test
-// router.get("/test", authMiddleWare, (req,res) =>{
-//     console.log('res.locals-->',res.locals)
-//     res.status(400).send({})
-// });
+// 새로고침 login check
+router.get("/loginCheck", authMiddleWare, (req, res) => {
+    const { user } = res.locals;
+    console.log('loginCheck user-->',user);
+    const userId = user[0].userId;
+    const userName = user[0].userName;
+    console.log('userId-->',userId);
+    console.log('userName-->',userName);
+    res.send({
+        userId : userId,
+        userName : userName,
+    });
+});
+
 
 module.exports = router;
