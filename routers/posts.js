@@ -89,6 +89,8 @@ router.post('/post', authMiddleware,upload.single('image'), async (req, res) => 
  	const { postId } = req.params
  	const { title, content } = req.body
      console.log(req.file)
+	 let today = new Date();
+	let date = today.toLocaleString()
      let image
      const {user} = res.locals;
      if(!req.file){
@@ -116,7 +118,7 @@ router.post('/post', authMiddleware,upload.single('image'), async (req, res) => 
  			if (err) { throw err; }
  		});
 
- 	await Post.updateOne({postId: Number(postId)}, { $set: {title, content, image }}) 	
+ 	await Post.updateOne({postId: Number(postId)}, { $set: {title, content, image , date }}) 	
 
 
  	 res.json({success: "수정이 완료되었습니다!"})
