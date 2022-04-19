@@ -50,7 +50,7 @@ router.post('/post', authMiddleware,upload.single('image'), async (req, res) => 
 		 errorMessage: "빈칸 없이 모두 입력해주세요"		
 		 });	
 		 }	
-		await Post.create({ postId, title, content, date, userName, userId });
+		await Post.create({ postId, title, content, date, userName, userId, image });
 		return res.status(200).json({
 			success: "등록 완료"
 		});
