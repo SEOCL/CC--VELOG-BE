@@ -13,10 +13,9 @@ router.post("/comment/:postId", authMiddleware, async (req, res) => {
     const {postId} = req.params;
     console.log("id->", postId);
     console.log(comment)
-    const {userId} = res.locals.user;
-    const user = res.locals.user;
-  
-    const userName = user.userName
+    const {user} = res.locals;
+    const userId = user[0].userId;
+    const userName = user[0].userName
     //0번째부터 
     //내림차순 정렬
   const commentIdList = await Comment.find({commentId}).sort({ "commentId": -1 });
@@ -35,7 +34,8 @@ router.post("/comment/:postId", authMiddleware, async (req, res) => {
       commentId,
       comment,
       dateComment,
-      userName
+      userName,
+      userId
     });
 
     res.status(200).json({ result: true, msg: "댓글 작성이 완료되었습니다."});
