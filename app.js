@@ -37,7 +37,7 @@ app.use(requestMiddleware);
 app.use(express.urlencoded({ extended: false }));
 app.use('/user', usersRouter);
 app.use("/api", [postsRouter, commentRouter]);
-app.use("/auth", authRouter);
+app.use("/oauth", authRouter);
 
 //라우터 연결
 
