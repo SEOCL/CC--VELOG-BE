@@ -8,16 +8,19 @@ const userSchema = mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
+    
   },
   userName: {
     type: String,
   },
   userNo: {
     type: Number,
-    required: true,
+    
     unique: true,
-  }//
+  },
+  provider:{
+    type: String
+  }
 });
 
 module.exports = mongoose.model("User", userSchema);

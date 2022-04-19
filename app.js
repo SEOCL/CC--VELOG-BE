@@ -4,8 +4,9 @@ const app = express();
 const port = 3000;
 const connect = require("./schemas")
 const authMiddleware = require("./middleware/authMiddleWare")
-
+const passportConfig = require("./passport");
 connect();
+passportConfig();
 
 app.use(cors());
 
@@ -13,7 +14,7 @@ app.use(cors());
 const commentRouter = require("./routers/comments")
 const postsRouter = require("./routers/posts")
 const usersRouter = require("./routers/users")
-
+const authRouter = require("./routers/auth")
 // 접속 로그 남기기**
 const requestMiddleware = (req, res, next) => {
     console.log(
@@ -36,7 +37,7 @@ app.use(requestMiddleware);
 app.use(express.urlencoded({ extended: false }));
 app.use('/user', usersRouter);
 app.use("/api", [postsRouter, commentRouter]);
-
+app.use("/auth", authRouter);
 
 //라우터 연결
 
