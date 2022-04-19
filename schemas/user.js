@@ -11,8 +11,7 @@ const userSchema = mongoose.Schema({
     
   },
   userName: {
-    type: String,
-    unique : true
+    type: String
   },
   userNo: {
     type: Number,
