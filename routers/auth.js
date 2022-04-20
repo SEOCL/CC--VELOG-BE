@@ -16,7 +16,13 @@ const kakaoCallback = (req, res, next) => {
       const { userId, userName } = user;
       const token = jwt.sign({userId: userId}, 'velog-secret-key');
      
-      res.json({ token, userId, userName });
+      result = {
+        token,
+        userId: userId,
+        userName: userName,
+      };
+      console.log(result)
+      res.send({ user: result });
     }
   )(req, res, next);  
  
