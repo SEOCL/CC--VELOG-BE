@@ -68,29 +68,19 @@ router.post("/signup", async (req, res) => {
             })
             return;
         }
-
-        const userList = await User.find().sort({ "userNo": -1 });
-        let userNo = 0;
-        if(userList.length == 0 || userList == null){
-        // console.log(user_list)
-            userNo = 1;
-        }else{
-            userNo = userList[0].userNo+1
-        }
+        
         // bcrypt module -> 암호화
         // 10 --> saltOrRound --> salt를 10번 실행 (높을수록 강력)
         const hashed = await bcrypt.hash(password,10);
-        const user = new User({ userId, userName, password : hashed, userNo})
+        const user = new User({ userId, userName, password : hashed})
         console.log('user-->',user);
         await user.save();
 
         res.status(200).send({
              msg : "회원가입 완료",
              userId,
-             userName,
-             userNo,
+             userName
         })
-
 });
 
 // login
@@ -126,14 +116,11 @@ router.get("/loginCheck", authMiddleWare, (req, res) => {
     console.log('loginCheck user-->',user);
     const userId = user[0].userId;
     const userName = user[0].userName;
-    const userNo = user[0].userNo;
     console.log('userId-->',userId);
     console.log('userName-->',userName);
-    console.log('userNo-->',userNo);
     res.status(200).send({
         userId : userId,
-        userName : userName,
-        userNo : userNo,
+        userName : userName
     });
 });
 
