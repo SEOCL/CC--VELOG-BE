@@ -28,13 +28,13 @@ const path = require("path");
 router.post('/post', authMiddleware,upload.single('image'), async (req, res) => {
 	try {
 		console.log("req.file:", req.file); // 테스트 => req.file.location에 이미지 링크(s3-server)가 담겨있음 
-		const { title, content } = req.body
+		const { title, content, tagList } = req.body
 		const image = req.file.location
 		const { user } = res.locals
 		const userName = user[0].userName
 		const userId = user[0].userId
 
-		console.log(title, content,image,userName, userId, image)
+		console.log(title, content,image,userName, userId, image, tagList)
 
 		let today = new Date();
 		let date = today.toLocaleString()
@@ -50,7 +50,7 @@ router.post('/post', authMiddleware,upload.single('image'), async (req, res) => 
 		 errorMessage: "빈칸 없이 모두 입력해주세요"		
 		 });	
 		 }	
-		await Post.create({ postId, title, content, date, userName, userId, image });
+		await Post.create({ postId, title, content, date, userName, userId, image, tagList });
 		return res.status(200).json({
 			success: "등록 완료"
 		});
@@ -142,6 +142,25 @@ res.json({
  	res.json({
  		post, comment
  	});
+ });
+
+// tagSearch
+ router.get("/tagSearch", async (req, res) => {
+	//  console.log(req.query);
+	const {search} = req.query;
+	console.log('req.query-->', search)
+	const regex = (pattern) => new RegExp(`.*${pattern}.*`);
+	const titleRegex = regex(search);
+	let searchTag = await Post.find({ $or : [
+		{'title' : { $regex: titleRegex, $options : 'i' }},
+		{'content' : { $regex: titleRegex, $options : 'i' }},
+		{'tagList' : { $regex: titleRegex, $options : 'i' }}]
+	});
+	console.log('searchTag--->' ,searchTag);
+	res.status(200).json({
+		searchTag
+	});
+	 
  });
 
 
