@@ -22,7 +22,9 @@ const postSchema = mongoose.Schema({
   },
   userId: {
     type: String   
-  }
+  },
+  tagList: [],
+    type: String  
 });
 
 module.exports = mongoose.model("Post", postSchema);
