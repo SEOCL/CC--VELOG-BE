@@ -13,11 +13,6 @@ const userSchema = mongoose.Schema({
   userName: {
     type: String
   },
-  userNo: {
-    type: Number,
-    
-    unique: true,
-  },
   provider:{
     type: String
   }
