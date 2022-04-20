@@ -34,7 +34,7 @@ router.post('/post', authMiddleware,upload.single('image'), async (req, res) => 
 		const userName = user[0].userName
 		const userId = user[0].userId
 
-		console.log(title, content,image,userName, userId, image)
+		console.log(title, content,image,userName, userId, )
 
 		let today = new Date();
 		let date = today.toLocaleString()
