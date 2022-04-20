@@ -17,12 +17,13 @@ module.exports = () => {
         // profile: 카카오가 보내준 유저 정보. profile의 정보를 바탕으로 회원가입
         async (accessToken, refreshToken, profile, done) => {
           
-            console.log(profile._json.kakao_account.email,accessToken,profile,)
+            console.log(accessToken,profile,)
           try {
             const exUser = await User.findOne({
               // 카카오 플랫폼에서 로그인 했고 & snsId필드에 카카오 아이디가 일치할경우
-              userid: profile.id, provider: "kakao" 
+              userId: profile.id
             });
+            console.log("확인",exUser)
             // 이미 가입된 카카오 프로필이면 성공
             if (exUser) {
               done(null, exUser); // 로그인 인증 완료
