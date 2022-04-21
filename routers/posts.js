@@ -36,6 +36,7 @@ router.post('/post', authMiddleware,upload.single('image'), async (req, res) => 
 
 		console.log(title, content,image,userName, userId, tagList)
 
+
 		let today = new Date();
 		let date = today.toLocaleString()
 		let postId = 0
@@ -87,7 +88,7 @@ router.post('/post', authMiddleware,upload.single('image'), async (req, res) => 
 // //게시글 수정
  router.post("/modify/:postId",authMiddleware, upload.single('image'), async (req, res)=>{
  	const { postId } = req.params
- 	const { title, content } = req.body
+ 	const { title, content,tagList } = req.body
      console.log(req.file)
 	 let today = new Date();
 	let date = today.toLocaleString()
@@ -118,7 +119,7 @@ router.post('/post', authMiddleware,upload.single('image'), async (req, res) => 
  			if (err) { throw err; }
  		});
 
- 	await Post.updateOne({postId: Number(postId)}, { $set: {title, content, image , date }}) 	
+ 	await Post.updateOne({postId: Number(postId)}, { $set: {title, content, image , date, tagList }}) 	
 
 
  	 res.json({success: "수정이 완료되었습니다!"})
@@ -156,6 +157,7 @@ res.json({
 		{'content' : { $regex: titleRegex, $options : 'i' }},
 		{'tagList' : { $regex: titleRegex, $options : 'i' }}]
 	});
+	// let searchTag = await Post.find({tagList:{$regex:search}}) $regex 포함되어있는 값찾기
 	console.log('searchTag--->' ,searchTag);
 	res.status(200).json({
 		searchTag
